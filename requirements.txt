@@ -1,0 +1,11 @@
+tensorflow>=2.0
+numpy
+pandas
+opencv-python
+albumentations
+matplotlib
+seaborn
+tqdm
+kaggle
+Pillow
+scikit-learn
