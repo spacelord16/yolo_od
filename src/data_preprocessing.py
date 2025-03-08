@@ -4,7 +4,7 @@ import xml.etree.ElementTree as ET
 import cv2
 from tqdm import tqdm
 
-data_path = '../data/raw/VOCdevkit/VOC2012'
+data_path = '/mnt/d/Yolo_scratch/yolo_od/data/raw/VOC2012'
 annotations_path = os.path.join(data_path, 'Annotations')
 images_path = os.path.join(data_path, 'JPEGImages')
 
@@ -24,19 +24,19 @@ def preprocess_data(img_size=(224,224)):
             label = obj.find('name').text
             bndbox = obj.find('bndbox')
             bbox = [
-                int(bndbox.find('xmin').text),
-                int(bndbox.find('ymin').text),
-                int(bndbox.find('xmax').text),
-                int(bndbox.find('ymax').text)
+                int(round(float(bndbox.find('xmin').text))),
+                int(round(float(bndbox.find('ymin').text))),
+                int(round(float(bndbox.find('xmax').text))),
+                int(round(float(bndbox.find('ymax').text)))
             ]
             objects.append({'label': label, 'bbox': bbox})
 
         images.append(image)
         labels.append(objects)
 
-    os.makedirs('../data/processed', exist_ok=True)
-    np.save('../data/processed/images.npy', np.array(images))
-    np.save('../data/processed/labels.npy', np.array(labels, dtype=object))
+    os.makedirs('/mnt/d/Yolo_scratch/yolo_od/data/processed', exist_ok=True)
+    np.save('/mnt/d/Yolo_scratch/yolo_od/data/processed/images.npy', np.array(images))
+    np.save('/mnt/d/Yolo_scratch/yolo_od/data/processed/labels.npy', np.array(labels, dtype=object))
     print("Data preprocessing complete. Numpy files saved.")
 
 if __name__ == "__main__":
